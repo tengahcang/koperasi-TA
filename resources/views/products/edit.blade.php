@@ -82,10 +82,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="barcode" class="form-label">Barcode</label>
                             <div class="input-group">
-                                <input class="form-control @error ('barcode') is-invalid @enderror" type="text" name="barcode" id="barcode" value="{{ $errors->any() ? old('barcode') : $product->barcode }}" placeholder="Scan barcode atau tekan tombol">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#barcodeModal">
-                                    <i class="bi-upc-scan"></i> Scan Barcode
-                                </button>
+                                <input class="form-control @error ('barcode') is-invalid @enderror" type="text" name="barcode" id="barcode" value="{{ $errors->any() ? old('barcode') : $product->barcode }}" placeholder="Scan barcode">
                             </div>
                             @error('barcode')
                                 <span class="text-danger">{{$message}}</span>
@@ -105,109 +102,6 @@
             </div>
         </form>
     </div>
-    <div class="modal fade" id="barcodeModal" tabindex="-1" aria-labelledby="barcodeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="barcodeModalLabel">Scan Barcode</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Silakan scan barcode produk menggunakan scanner.</p>
-                    <input class="form-control" type="text" id="barcodeInputModal" placeholder="Scan barcode di sini..." autofocus>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" id="confirmBarcode">Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const barcodeInputModal = document.getElementById("barcodeInputModal"); // Input di modal
-            const barcodeInput = document.getElementById("barcode"); // Input barcode di form
-            const confirmBarcodeButton = document.getElementById("confirmBarcode"); // Tombol "Simpan" di modal
-
-            // Saat tombol "Simpan" di modal diklik
-            confirmBarcodeButton.addEventListener("click", function() {
-                // Isi nilai barcode dari modal ke input barcode di form
-                barcodeInput.value = barcodeInputModal.value;
-                // Tutup modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById("barcodeModal"));
-                modal.hide();
-            });
-
-            // Jika pengguna menekan Enter di input modal, langsung simpan
-            barcodeInputModal.addEventListener("keydown", function(event) {
-                if (event.key === "Enter") {
-                    event.preventDefault(); // Mencegah perilaku default
-                    confirmBarcodeButton.click(); // Trigger tombol "Simpan"
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
-
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $pageTitle }}</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-
-<body>
-    <!-- Navbar dan Form (sama seperti sebelumnya) -->
-
-    <!-- Modal Barcode -->
-    <div class="modal fade" id="barcodeModal" tabindex="-1" aria-labelledby="barcodeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="barcodeModalLabel">Scan Barcode</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Silakan scan barcode produk menggunakan scanner.</p>
-                    <input class="form-control" type="text" id="barcodeInputModal" placeholder="Scan barcode di sini..." autofocus>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" id="confirmBarcode">Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const barcodeInputModal = document.getElementById("barcodeInputModal"); // Input di modal
-            const barcodeInput = document.getElementById("barcode"); // Input barcode di form
-            const confirmBarcodeButton = document.getElementById("confirmBarcode"); // Tombol "Simpan" di modal
-
-            // Saat tombol "Simpan" di modal diklik
-            confirmBarcodeButton.addEventListener("click", function() {
-                // Isi nilai barcode dari modal ke input barcode di form
-                barcodeInput.value = barcodeInputModal.value;
-                // Tutup modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById("barcodeModal"));
-                modal.hide();
-            });
-
-            // Jika pengguna menekan Enter di input modal, langsung simpan
-            barcodeInputModal.addEventListener("keydown", function(event) {
-                if (event.key === "Enter") {
-                    event.preventDefault(); // Mencegah perilaku default
-                    confirmBarcodeButton.click(); // Trigger tombol "Simpan"
-                }
-            });
-        });
-    </script>
-</body>
-</html> --}}
