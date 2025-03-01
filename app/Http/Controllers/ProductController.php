@@ -109,6 +109,30 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+            // 'email' => 'Isi :attribute dengan format yang benar',
+            'numeric' => 'Isi :attribute dengan angka'
+        ];
+        $validator = Validator::make($request->all(), [
+            'category' => 'required',
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'barcode' => 'required|numeric',
+        ], $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        DB::table('products')->where('id',$id)->insert([
+            'categories_id' => $request->category,
+            'barcode' => $request->barcode,
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect()->route('products.index');
     }
 
     /**
