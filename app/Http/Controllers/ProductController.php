@@ -141,5 +141,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+        DB::table('products')->where('id', $id)->update(['deleted_at' => Carbon::now()]);
+        return redirect()->route('products.index');
     }
 }
